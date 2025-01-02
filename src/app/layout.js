@@ -31,15 +31,24 @@ export const metadata = {
 
 import MaterialTailwindThemeProvider from "@/app/_component/MaterialTailwindThemeProvider";
 import ReduxProvider from "@/app/_component/ReduxProvider";
+import { Grid2 as Grid } from "@mui/material";
 
+import PageHeader from "./_component/PageHeader";
 
 export default function RootLayout({ children }) {
     return (
         <html lang="en">
-            <body className="body">
+            <body className="body" style={{ backgroundColor: "gray" }}>
                 <ReduxProvider>
                     <MaterialTailwindThemeProvider>
-                        {children}
+                        <Grid container direction={"column"} spacing={"1px"} style={{ height: "100vh", backgroundColor: "gray", }}>
+                            <Grid size={12} style={{ backgroundColor: "red"}} >
+                                <PageHeader />
+                            </Grid>
+                            <Grid size={12} style={{ backgroundColor: "#464646" }}>
+                                {children}
+                            </Grid>
+                        </Grid>
                     </MaterialTailwindThemeProvider>
                 </ReduxProvider>
             </body>
