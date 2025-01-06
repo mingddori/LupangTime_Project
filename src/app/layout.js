@@ -41,11 +41,11 @@ export default function RootLayout({ children }) {
             <body className="body" style={{ backgroundColor: "gray" }}>
                 <ReduxProvider>
                     <MaterialTailwindThemeProvider>
-                        <Grid container direction={"column"} spacing={"1px"} style={{ height: "100vh", backgroundColor: "gray", }}>
-                            <Grid size={12} style={{ backgroundColor: "red"}} >
+                        <Grid container direction={"column"} sx={{ height: "100vh"}}>
+                            <Grid size={12} sx={{height : "80px"}} >
                                 <PageHeader />
                             </Grid>
-                            <Grid size={12} style={{ backgroundColor: "#464646" }}>
+                            <Grid size={12} sx={{backgroundColor : "green", flexGrow : 1}}>
                                 {children}
                             </Grid>
                         </Grid>
