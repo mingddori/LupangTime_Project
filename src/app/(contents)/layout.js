@@ -7,7 +7,7 @@ export default function ContentsLayout({ children }) {
             <Grid xs={12} sx={{height : "50px", backgroundColor : "white"}}>
                 <MenuBar />
             </Grid>
-            <Grid xs={12} sx={{flexGrow : 1, backgroundColor : "pink"}}>
+            <Grid xs={12} sx={{flexGrow : 1, height : "calc(100% - 50px)", backgroundColor : "pink"}}>
                 {children}
             </Grid>
         </Grid>

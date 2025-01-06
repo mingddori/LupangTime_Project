@@ -45,7 +45,7 @@ export default function RootLayout({ children }) {
                             <Grid size={12} sx={{height : "80px"}} >
                                 <PageHeader />
                             </Grid>
-                            <Grid size={12} sx={{backgroundColor : "green", flexGrow : 1}}>
+                            <Grid size={12} sx={{backgroundColor : "green", flexGrow : 1, height : "calc(100% - 80px)"}}>
                                 {children}
                             </Grid>
                         </Grid>
