@@ -1,3 +1,167 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: "NanumSquareR";
+    src: url("../../public/fonts/NanumSquareR.ttf"),
+    url("../../public/fonts/NanumSquareR.otf")
+}
+
+@font-face {
+    font-family: "NanumSquareEB";
+    src: url("../../public/fonts/NanumSquareEB.ttf"),
+    url("../../public/fonts/NanumSquareEB.otf")
+}
+
+@font-face {
+    font-family: "NanumSquareB";
+    src: url("../../public/fonts/NanumSquareB.ttf"),
+    url("../../public/fonts/NanumSquareB.otf")
+}
+
+@font-face {
+    font-family: "NanumSquareOTFR";
+    src: url("../../public/fonts/NanumSquareOTFR.otf")
+}
+
+.custom_scrollbar::-webkit-scrollbar {
+    width: "8px";
+    height: "8px";
+    background-color : transparent
+}
+
+.custom_scrollbar::-webkit-scrollbar-thumb {
+    height: 30%;
+    background-color : #191e27;
+    border-radius : 10px
+}
+
+.custom_scrollbar::-webkit-scrollbar-track {
+    /* background-color: #191b1e; */
+    border-radius : 10px
+}
+
+.custom_scrollbar::-webkit-scrollbar-corner {
+    background : transparent;
+}
+
+/* Font Default Option */
+.textDefault {
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: normal;
+}
+
+.kor {font-family: NanumSquareR;}
+.korB {font-family: NanumSquareB;}
+.eng {font-family: NanumSquareEB;}
+.NanumSquareOTFR {font-family: NanumSquareOTFR;}
+
+/* Custom */
+.text_link_color{color: rgba(255, 197, 88, 0.918);}
+.text_link_color:hover{color: #518aff;}
+.text_link_color_only{color: rgba(255, 197, 88, 0.918);}
+.text_link_color_hover:hover{color: #518aff;}
+.text_link_color p{margin : 0;}
+.text_link_color div{display: inline-block;}
+.textLinkHoverCursor{cursor: pointer;}
+.link_no_underline{text-decoration: none;}
+.text_error_color{color:rgb(206, 108, 91);}
+
+.border_error_box{border: 3px solid rgb(206, 108, 91);}
+
+/* 
+* 로딩 화면
+*/
+.loading_container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 320px;
+    height: 100%;
+    width: 100%;
+    perspective: 1000px;
+    text-align: center;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    gap : 55px
+}
+
+.loading_container_component {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 210px;
+    height: 100%;
+    width: 100%;
+    perspective: 1000px;
+    text-align: center;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    gap : 55px
+}
+
+.loading_cube {
+    width: 75px;
+    height: 75px;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: rotate 8s infinite linear;
+}
+
+.loading_text {
+    margin-top: 20px;
+    font-size: 24px;
+}
+
+.cube_face {
+    position: absolute;
+    width: 75px;
+    height: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 20px;
+    font-family: Arial, sans-serif;
+    border: 1px solid #fff;
+    background: #518bffce;
+    overflow: hidden;
+}
+
+.cube_face1 { transform: rotateX(90deg) translateZ(37.5px); }
+.cube_face2 { transform: rotateY(180deg) translateZ(37.5px); }
+.cube_face3 { transform: rotateY(90deg) translateZ(37.5px); }
+.cube_face4 { transform: rotateY(-90deg) translateZ(37.5px); }
+.cube_face5 { transform: rotateX(-90deg) translateZ(37.5px); }
+.cube_face6 { transform: translateZ(37.5px); }
+
+@keyframes rotate {
+    0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+    100% { transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg); }
+}
+
+.cube_face:before {
+    content: "";
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    background: rgba(255, 255, 255, 0.1);
+    animation: glitch 1s infinite linear alternate;
+}
+
+
+@keyframes glitch {
+    0%, 100% { clip-path: inset(0 0 0 0); }
+    10% { clip-path: inset(5% 0 80% 0); }
+    20% { clip-path: inset(10% 0 60% 0); }
+    30% { clip-path: inset(0 0 70% 0); }
+    40% { clip-path: inset(0 0 30% 0); }
+    50% { clip-path: inset(40% 0 20% 0); }
+    60% { clip-path: inset(80% 0 10% 0); }
+    70% { clip-path: inset(20% 0 50% 0); }
+    80% { clip-path: inset(0 0 0 0); }
+}
