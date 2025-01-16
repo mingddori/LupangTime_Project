@@ -19,7 +19,7 @@ export default async function GamePage() {
     const GameItemBox = ({ game }) => {
         return (
             <Stack sx={{ height: "300px", width: "300px", backgroundColor: "darkred", justifyContent: "center", alignItems: "center" }}>
-                <Button variant={"contained"} sx={{ flex: 1, width: "100%" }} href={`game/${game.game_name_eng}`}>
+                <Button variant={"contained"} sx={{ flex: 1, width: "100%" }} href={`/game/${game.game_name_eng}`}>
                     <Typography variant={"h4"}>{game.game_name_kor}</Typography>
                 </Button>
             </Stack>
