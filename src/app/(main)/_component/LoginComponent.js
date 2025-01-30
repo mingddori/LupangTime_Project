@@ -2,13 +2,14 @@
 
 import { FormControl, Grid2 as Grid, Typography, TextField, Button, Divider, Link } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { createClient } from "@/db/supabaseClient";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+import { handleLogin } from "./authAction";
+
 export default function LoginComponent() {
 
-    const supabase = createClient();
+    const supabase = createClient(); // 없애야함
 
     const { register, formState: { errors }, handleSubmit } = useForm();
 
@@ -21,26 +22,7 @@ export default function LoginComponent() {
         try {
             setLoading(true);
 
-            // Ouath 로그인 시도
-            if (provider) {
-                // 로그인 시도
-                const { error } = await supabase.auth.signInWithOAuth({
-                    provider,
-                    options: {
-                        redirectTo: `${window.location.origin}/auth/callback`
-                    }
-                });
-
-                nextLoginResult(error);
-            }
-            // 이메일 로그인 시도
-            else {
-                // ✅ 이메일/비밀번호 로그인 처리
-                const { email, password } = data;
-                const { user, error } = await supabase.auth.signInWithPassword({ email, password });
-
-                nextLoginResult(error);
-            }
+            
 
         }
         catch (error) {
@@ -71,7 +53,7 @@ export default function LoginComponent() {
                 </Typography>
             </Grid>
             <Grid sx={{ flex: 1, backgroundColor: "white" }}>
-                <form onSubmit={handleSubmit(handleLogin)}>
+                <form action={handleLogin} onSubmit={handleSubmit(handleLogin)}>
                     <FormControl>
                         <TextField
                             label="Email"
@@ -93,7 +75,7 @@ export default function LoginComponent() {
                         <Button variant="contained" disabled={loading} onClick={() => handleLogin({}, "apple")} loading={loading ? loading : undefined} loadingposition="start">Login with Apple</Button>
                     </FormControl>
                 </form>
-                <Link href="/signup">회원가입</Link>
+                <Link href="/user/signup">이메일로 회원가입</Link>
             </Grid>
         </Grid>
     )
