@@ -1,6 +1,7 @@
 "use client";
 
-import { FormControl, Grid2 as Grid, Typography, TextField, Button, Divider, Link } from "@mui/material";
+import { FormControl, Grid2 as Grid, Typography, TextField, Divider, Link } from "@mui/material";
+import Button from "@mui/material/Button";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -9,38 +10,27 @@ import { handleLogin } from "./authAction";
 
 export default function LoginComponent() {
 
-    const supabase = createClient(); // 없애야함
-
     const { register, formState: { errors }, handleSubmit } = useForm();
 
     const [errorFromSubmit, setErrorFromSubmit] = useState("");
     const [loading, setLoading] = useState(false);
     const router = useRouter();
 
-    const handleLogin = async (data, provider = null) => {
+    const onSubmit = async (data, provider = null) => {
 
-        try {
-            setLoading(true);
+        setLoading(true);
 
-            
+        const result = await handleLogin(data, provider);
 
-        }
-        catch (error) {
-            setErrorFromSubmit(error.message);
+        if (!result.success) {
+            setErrorFromSubmit(result.message);
             setLoading(false);
             setTimeout(() => {
                 setErrorFromSubmit("");
             }, 5000);
         }
-    }
-
-    const nextLoginResult = async (error) => {
-        if (error) {
-            setErrorFromSubmit(error.message);
-            console.error("OAuth Signin Error", error.message);
-            
-        } else {
-            setLoading(false);
+        else {
+            setLoading(false)
             router.replace("/");
         }
     }
@@ -53,7 +43,7 @@ export default function LoginComponent() {
                 </Typography>
             </Grid>
             <Grid sx={{ flex: 1, backgroundColor: "white" }}>
-                <form action={handleLogin} onSubmit={handleSubmit(handleLogin)}>
+                <form onSubmit={handleSubmit((data) => onSubmit(data))}>
                     <FormControl>
                         <TextField
                             label="Email"
@@ -68,7 +58,7 @@ export default function LoginComponent() {
                             autoComplete="current-password"
                             {...register("password", { required: true })}
                         />
-                        <Button variant="contained" disabled={loading} type="submit" loading={loading ? loading : undefined} loadingposition="start">Login with Email</Button>
+                        <Button variant="contained" type="submit" loading={loading ? loading : undefined} loadingposition="start">Login with Email</Button>
                         <Divider >소셜 로그인</Divider>
                         <Button variant="contained" disabled={loading} onClick={() => handleLogin({}, "google")} loading={loading ? loading : undefined} loadingposition="start">Login with Google</Button>
                         <Button variant="contained" disabled={loading} onClick={() => handleLogin({}, "kakao")} loading={loading ? loading : undefined} loadingposition="start">Login with Kakao</Button>

@@ -1,14 +1,13 @@
 "use client";
 
-import { FormControl, Grid2 as Grid, Typography, TextField, Button, Divider, Link } from "@mui/material";
+import { FormControl, Grid2 as Grid, Typography, TextField, Button, Link } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { createClient } from "@/db/supabaseClient";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 
-export default function LoginComponent() {
+import { handleSignUp } from "./authAction";
 
-    const supabase = createClient();
+export default function LoginComponent() {
 
     const { register, watch, formState: { errors }, handleSubmit } = useForm();
 
@@ -20,48 +19,20 @@ export default function LoginComponent() {
     
     const router = useRouter();
 
-    const handleLogin = async (data, provider = null) => {
+    const onSubmit = async (data) => {
 
-        try {
-            setLoading(true);
+        setLoading(true);
 
-            // Ouath 로그인 시도
-            if (provider) {
-                // 로그인 시도
-                const { error } = await supabase.auth.signInWithOAuth({
-                    provider,
-                    options: {
-                        redirectTo: `${window.location.origin}/auth/callback`
-                    }
-                });
+        const result = await handleSignUp(data);
 
-                nextLoginResult(error);
-            }
-            // 이메일 로그인 시도
-            else {
-                // ✅ 이메일/비밀번호 로그인 처리
-                const { email, password } = data;
-                const { user, error } = await supabase.auth.signInWithPassword({ email, password });
-
-                nextLoginResult(error);
-            }
-
-        }
-        catch (error) {
-            setErrorFromSubmit(error.message);
+        if (!result.success) {
+            setErrorFromSubmit(result.message);
             setLoading(false);
             setTimeout(() => {
                 setErrorFromSubmit("");
             }, 5000);
         }
-    }
-
-    const nextLoginResult = async (error) => {
-        if (error) {
-            setErrorFromSubmit(error.message);
-            console.error("OAuth Signin Error", error.message);
-
-        } else {
+        else{
             setLoading(false);
             router.replace("/");
         }
@@ -75,7 +46,7 @@ export default function LoginComponent() {
                 </Typography>
             </Grid>
             <Grid sx={{ flex: 1, backgroundColor: "white" }}>
-                <form onSubmit={handleSubmit(handleLogin)}>
+                <form onSubmit={handleSubmit(onSubmit)}>
                     <FormControl>
                         <TextField
                             label="Email"
@@ -101,7 +72,7 @@ export default function LoginComponent() {
                             label="비밀번호 확인"
                             variant="outlined"
                             type="password"
-                            {...register("password_confirm", { required: true, validate : (value) => value})}
+                            {...register("password_confirm", { required: true, validate : (value) => value === password.current})}
                         />
 
                         {errors.password_confirm && errors.password_confirm.type === "required" && (<p>This password field is required</p>)}
