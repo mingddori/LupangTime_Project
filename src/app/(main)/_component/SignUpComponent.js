@@ -52,6 +52,7 @@ export default function LoginComponent() {
                             label="Email"
                             variant="outlined"
                             type="email"
+                            error={errors.email ? true : undefined}
                             {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
                         />
 
@@ -62,6 +63,7 @@ export default function LoginComponent() {
                             variant="outlined"
                             type="password"
                             helperText="비밀번호는 최소 6자 이상이어야 합니다."
+                            error={errors.password ? true : undefined}
                             {...register("password", { required: true, minLength: 6 })}
                         />
 
@@ -72,6 +74,7 @@ export default function LoginComponent() {
                             label="비밀번호 확인"
                             variant="outlined"
                             type="password"
+                            error={errors.password_confirm ? true : undefined}
                             {...register("password_confirm", { required: true, validate : (value) => value === password.current})}
                         />
 
