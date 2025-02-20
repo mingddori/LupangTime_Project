@@ -31,25 +31,28 @@ export const metadata = {
 
 import MaterialTailwindThemeProvider from "@/app/_component/MaterialTailwindThemeProvider";
 import ReduxProvider from "@/app/_component/ReduxProvider";
+import AuthProvider from "@/app/_component/AuthProvider";
 import { Grid2 as Grid } from "@mui/material";
 
-import PageHeader from "./_component/PageHeader";
+import PageHeader from "@/app/_component/PageHeader";
 
 export default function RootLayout({ children }) {
     return (
         <html lang="en">
             <body className="body" style={{ backgroundColor: "gray" }}>
                 <ReduxProvider>
-                    <MaterialTailwindThemeProvider>
-                        <Grid container direction={"column"} sx={{ height: "100vh"}}>
-                            <Grid size={12} sx={{height : "80px"}} >
-                                <PageHeader />
+                    <AuthProvider>
+                        <MaterialTailwindThemeProvider>
+                            <Grid container direction={"column"} sx={{ height: "100vh" }}>
+                                <Grid size={12} sx={{ height: "80px" }} >
+                                    <PageHeader />
+                                </Grid>
+                                <Grid size={12} sx={{ backgroundColor: "green", flexGrow: 1, height: "calc(100% - 80px)" }}>
+                                    {children}
+                                </Grid>
                             </Grid>
-                            <Grid size={12} sx={{backgroundColor : "green", flexGrow : 1, height : "calc(100% - 80px)"}}>
-                                {children}
-                            </Grid>
-                        </Grid>
-                    </MaterialTailwindThemeProvider>
+                        </MaterialTailwindThemeProvider>
+                    </AuthProvider>
                 </ReduxProvider>
             </body>
         </html >

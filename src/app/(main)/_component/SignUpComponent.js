@@ -42,7 +42,7 @@ export default function LoginComponent() {
         <Grid container direction={"column"} size={12} sx={{ height: "100%", background: "#468243" }}>
             <Grid sx={{ height: "100px", backgroundColor: "darkred", alignContent: "center", justifyItems: "center" }}>
                 <Typography variant="h2" sx={{ color: "white" }}>
-                    로그인
+                    회원가입
                 </Typography>
             </Grid>
             <Grid sx={{ flex: 1, backgroundColor: "white" }}>

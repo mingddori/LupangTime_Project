@@ -51,6 +51,7 @@ export default function LoginComponent() {
                             type="email"
                             {...register("email", { required: true })}
                         />
+                        {errors.email && <p>This email field is required</p>}
                         <TextField
                             label="Password"
                             variant="outlined"
@@ -58,6 +59,10 @@ export default function LoginComponent() {
                             autoComplete="current-password"
                             {...register("password", { required: true })}
                         />
+                        {errors.password && errors.password.type === "required" && <p>This password field is required</p>}
+                        {errors.password && errors.password.type === "minLength" && <p>Password must have at least 6 characters</p>}
+
+                        {errorFromSubmit && <p>{errorFromSubmit}</p>}
                         <Button variant="contained" type="submit" loading={loading ? loading : undefined} loadingposition="start">Login with Email</Button>
                         <Divider >소셜 로그인</Divider>
                         <Button variant="contained" disabled={loading} onClick={() => handleLogin({}, "google")} loading={loading ? loading : undefined} loadingposition="start">Login with Google</Button>
