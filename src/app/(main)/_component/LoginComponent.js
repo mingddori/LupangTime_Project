@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import { handleLogin } from "./authAction";
+import { handleLogin } from "../../_lib/authAction";
 
 export default function LoginComponent() {
 

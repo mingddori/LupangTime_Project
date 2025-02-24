@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     user : null,
-    session : null
+    loading : true,
 }
 
 export const authSlice =  createSlice({
@@ -11,17 +11,18 @@ export const authSlice =  createSlice({
     reducers : {
         setUser : (state, action) => {
             state.user = action.payload;
-        },
-        setSession : (state, action) => {
-            state.session = action.payload;
+            state.loading = false; // 유저 데이터가 들어오면 로딩 완료
         },
         logout : (state) => {
             state.user = null;
             state.session = null;
-        }
+        },
+        setLoading : (state, action) => {
+            state.loading = action.payload;  // 로딩 상태 업데이트 가능
+        },
     }
 })
 
-export const {setUser, setSession, logout} = authSlice.actions;
+export const {setUser, setLoading, logout} = authSlice.actions;
 
 export default authSlice.reducer;

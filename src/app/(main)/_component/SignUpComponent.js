@@ -5,9 +5,9 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 
-import { handleSignUp } from "./authAction";
+import { handleSignUp } from "../../_lib/authAction";
 
-export default function LoginComponent() {
+export default function SignUpComponent() {
 
     const { register, watch, formState: { errors }, handleSubmit } = useForm();
 
