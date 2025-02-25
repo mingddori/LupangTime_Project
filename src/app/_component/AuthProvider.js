@@ -10,24 +10,31 @@ export default function AuthProvider({ children }) {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        const fetchUser = async () => {
-            dispatch(setLoading(true)); // ✅ 로딩 시작
+        const fetchSession = async () => {
+            dispatch(setLoading(true));
 
-            // ✅ 현재 로그인된 유저 확인
-            const { data: { user }, error } = await supabase.auth.getUser();
+            // ✅ 현재 세션 가져오기
+            const { data: { session }, error } = await supabase.auth.getSession();
 
             if (error) {
-                console.error("Error fetching user:", error.message);
+                console.error("Error fetching session:", error.message);
             }
 
-            dispatch(setUser(user)); // ✅ Redux 상태 업데이트
-            dispatch(setLoading(false)); // ✅ 로딩 완료
+            if (session?.user) {
+                dispatch(setUser(session.user));
+            } else {
+                dispatch(logout());
+            }
+
+            dispatch(setLoading(false));
         };
 
-        fetchUser();
+        fetchSession();
 
         // ✅ 로그인 상태 변경 감지
         const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+            console.log("🔄 Auth Change Event:", event, "Session:", session);
+
             if (session?.user) {
                 dispatch(setUser(session.user));
             } else {
@@ -35,11 +42,10 @@ export default function AuthProvider({ children }) {
             }
         });
 
-        // ✅ useEffect 클린업 함수 (구독 해제)
         return () => {
-            authListener.subscription.unsubscribe();
+            authListener?.subscription?.unsubscribe();
         };
-    }, [dispatch, supabase]);
+    }, [dispatch, supabase.auth]);
 
     return children;
 }
