@@ -15,6 +15,8 @@ export default function AuthProvider({ children }) {
 
             // ✅ 현재 세션 가져오기
             const { data: { session }, error } = await supabase.auth.getSession();
+            console.log("🔥 로그인 정보 확인:", session);
+
 
             if (error) {
                 console.error("Error fetching session:", error.message);
@@ -32,14 +34,10 @@ export default function AuthProvider({ children }) {
         fetchSession();
 
         // ✅ 로그인 상태 변경 감지
-        const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+        const { data: authListener } = supabase.auth.onAuthStateChange(async (event, session) => {
             console.log("🔄 Auth Change Event:", event, "Session:", session);
 
-            if (session?.user) {
-                dispatch(setUser(session.user));
-            } else {
-                dispatch(logout());
-            }
+            await fetchSession(); // ✅ 즉시 Redux 상태 업데이트
         });
 
         return () => {

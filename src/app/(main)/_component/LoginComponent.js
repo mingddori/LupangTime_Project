@@ -8,6 +8,10 @@ import { useState } from "react";
 
 import { handleLogin } from "../../_lib/authAction";
 
+import { useDispatch } from "react-redux";
+import { setUser } from "@/store/authSlice";
+import { createClient } from "@/db/supabaseClient";
+
 export default function LoginComponent() {
 
     const { register, formState: { errors }, handleSubmit } = useForm();
@@ -15,6 +19,8 @@ export default function LoginComponent() {
     const [errorFromSubmit, setErrorFromSubmit] = useState("");
     const [loading, setLoading] = useState(false);
     const router = useRouter();
+
+    const dispatch = useDispatch();
 
     const onSubmit = async (data, provider = null) => {
 
@@ -30,6 +36,12 @@ export default function LoginComponent() {
             }, 5000);
         }
         else {
+            const supabase = createClient();
+            const { data: {session}} = await supabase.auth.getSession();
+            if(session?.user) {
+                dispatch(setUser(session.user));
+            }
+
             setLoading(false)
             router.replace("/");
         }
