@@ -1,10 +1,12 @@
 import { NextResponse } from "next/server";
 
+
 export async function middleware(req) {
     const { pathname } = new URL(req.url);
     console.log(pathname);
-    
 
+    // const token = 
+    
 //     // 허용된 경로 목록
 //   const allowedPaths = [
 //     "/", // 메인 페이지
@@ -21,6 +23,11 @@ export async function middleware(req) {
     // root -> Root Page를 home으로 설정
     if(pathname === '/'){
         return NextResponse.redirect(new URL('/home', req.url));
+    }
+
+    // 로그인 되어 있지 않을 때는 로그인 페이지로 리다이렉트
+    if(pathname.startsWith('/login')){
+        return NextResponse.next();
     }
 
 

@@ -14,7 +14,7 @@ export default async function NumBaseballPage() {
                 </Button>
             </Stack>
             <Stack sx={{ height: "300px", width: "300px", backgroundColor: "darkred", justifyContent: "center", alignItems: "center" }}>
-                <Button variant={"contained"} sx={{ flex: 1, width: "100%" }} href={`/game/num_baseball/rooms`}>
+                <Button variant={"contained"} sx={{ flex: 1, width: "100%" }} href={`/game/num_baseball/players/rooms`}>
                     <Typography variant={"h4"}>둘이하기</Typography>
                 </Button>
             </Stack>
