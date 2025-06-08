@@ -12,16 +12,6 @@ export default function LoginInfoComponent() {
 
     const {user, loading} = useSelector((state) => state.auth);
 
-    //  // ✅ useState로 즉시 반영되도록 변경
-    //  const [authUser, setAuthUser] = useState(user);
-    //  const [authLoading, setAuthLoading] = useState(loading);
-
-    //  useEffect(() => {
-    //      setAuthUser(user);
-    //      setAuthLoading(loading)
-    //      console.log("🔥 로그인 정보 업데이트:", user);
-    //  }, [user, loading]); // Redux 상태가 변경될 때 `authUser` 업데이트
-
     const router = useRouter();
     const dispatch = useDispatch();
 
@@ -35,7 +25,6 @@ export default function LoginInfoComponent() {
             dispatch(logout());
             router.replace("/user/login");
         }
-
     }
 
     return (

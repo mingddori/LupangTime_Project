@@ -37,7 +37,15 @@ export default function AuthProvider({ children }) {
         const { data: authListener } = supabase.auth.onAuthStateChange(async (event, session) => {
             console.log("🔄 Auth Change Event:", event, "Session:", session);
 
-            await fetchSession(); // ✅ 즉시 Redux 상태 업데이트
+            dispatch(setLoading(true));
+
+            if (session?.user) {
+                dispatch(setUser(session.user));
+            } else {
+                dispatch(logout());
+            }
+
+            dispatch(setLoading(false));
         });
 
         return () => {
