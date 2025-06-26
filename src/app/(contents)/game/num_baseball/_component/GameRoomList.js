@@ -82,7 +82,7 @@ export default function GameRoomList(props) {
                                     </Grid>
                                 </Grid>
                                 <Grid size={2} sx={{ height: "100%", backgroundColor: "darkblue", justifyContent: "center", alignItems: "center" }}>
-                                    <Button variant="contained" color="primary" sx={{ height: "100%", width: "100%" }} href={`/game/num_baseball/play/${room.room_num}`}>
+                                    <Button variant="contained" color="primary" sx={{ height: "100%", width: "100%" }} href={`/game/num_baseball/players/rooms/${room.room_num}`}>
                                         입장
                                     </Button>
                                 </Grid>
